@@ -1,0 +1,27 @@
+{
+  "name": "closure-type",
+  "version": "0.1.0",
+  "description": "A pattern and helper library for augmenting the revealing module pattern with mixin support.",
+  "main": "closureType.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/whastings/closure-type.git"
+  },
+  "keywords": [
+    "closure",
+    "inheritance",
+    "object-oriented",
+    "mixin",
+    "revealing",
+    "module"
+  ],
+  "author": "Will Hastings <will@objectdotcreate.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whastings/closure-type/issues"
+  },
+  "homepage": "https://github.com/whastings/closure-type#readme"
+}

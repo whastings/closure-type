@@ -20,7 +20,7 @@
   }
 
   function applyMixins(mixins, instance, initArgs) {
-    var i, length,
+    var i, length, mixin, mixinType,
         apiObj = {};
 
     if (!mixins || !mixins.length) {
@@ -28,10 +28,38 @@
     }
 
     for (i = 0, length = mixins.length; i < length; i++) {
-      mixins[i](instance, apiObj, initArgs);
+      mixin = mixins[i];
+      mixinType = typeof mixin;
+      if (mixinType === 'function') {
+        mixin(instance, apiObj, initArgs);
+      } else if (mixinType === 'object') {
+        extendWithContext(apiObj, mixin, instance);
+      }
     }
 
     return apiObj;
+  }
+
+  function extend(target, source) {
+    for (var prop in source) {
+      if (source.hasOwnProperty(prop)) {
+        target[prop] = source[prop];
+      }
+    }
+  }
+
+  function extendWithContext(target, source, context) {
+    var key, value;
+    for (key in source) {
+      if (source.hasOwnProperty(key)) {
+        value = source[key];
+        if (typeof value === 'function') {
+          target[key] = value.bind(context);
+        } else {
+          target[key] = value;
+        }
+      }
+    }
   }
 
   function withInitArgs(args, fn) {
@@ -39,6 +67,10 @@
       return fn.apply(null, args);
     };
   }
+
+  extend(closureType, {
+    extend: extend
+  });
 
   return closureType;
 }));

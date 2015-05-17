@@ -1,4 +1,5 @@
-var closureType = require('./closureType');
+var closureType = require('./closureType'),
+    EventEmitter = require('events').EventEmitter;
 
 var postType = closureType(
   function(self, api, initArgs) {
@@ -19,11 +20,19 @@ var postType = closureType(
       return self.title;
     }
 
-    api.getBody = getBody;
-    api.getPrefix = getPrefix;
-    api.getTitle = getTitle;
+    function setTitle(newTitle) {
+      self.title = newTitle;
+      api.emit('titleChange', newTitle);
+    }
+
+    closureType.extend(api, {
+      getBody: getBody,
+      getPrefix: getPrefix,
+      getTitle: getTitle,
+      setTitle: setTitle
+    });
   },
-  [someMixin]
+  [someMixin, EventEmitter.prototype]
 );
 
 function someMixin(self, api, initArgs) {
@@ -36,12 +45,21 @@ function someMixin(self, api, initArgs) {
     return prefix + ': ' + self.superTitle;
   }
 
-  api.getSuperTitle = getSuperTitle;
+  closureType.extend(api, {
+    getSuperTitle: getSuperTitle
+  });
 }
 
 var jsPost = postType('js oo', 'Is complicated...');
+
 console.log(jsPost.getTitle());
 console.log(jsPost.getBody());
 console.log(jsPost.getSuperTitle());
 console.log(jsPost.title);
 console.log(jsPost.body);
+
+jsPost.on('titleChange', function(newTitle) {
+  console.log(newTitle);
+});
+
+jsPost.setTitle('Scoop on the Revealing Module Pattern');

@@ -4,7 +4,7 @@
   "description": "A pattern and helper library for augmenting the revealing module pattern with mixin support.",
   "main": "closureType.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/closureType_tests.js | tap-spec"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/whastings/closure-type/issues"
   },
-  "homepage": "https://github.com/whastings/closure-type#readme"
+  "homepage": "https://github.com/whastings/closure-type#readme",
+  "devDependencies": {
+    "tap-spec": "^4.0.0",
+    "tape": "^4.0.0"
+  }
 }

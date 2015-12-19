@@ -1,6 +1,6 @@
 {
   "name": "closure-type",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A pattern and helper library for augmenting the revealing module pattern with mixin support.",
   "main": "closureType.js",
   "scripts": {
